@@ -12,7 +12,7 @@ class RegisterController extends Controller
     {
         $credentials = $request->validate([
             'name' => ['required'],
-            'email' => ['required', 'email'],
+            'email' => ['required', 'unique:users', 'email'],
             'password' => ['required', 'confirmed'],
         ]);
 
@@ -22,7 +22,7 @@ class RegisterController extends Controller
 
         return response()->json([
            'user' => $user,
-           'token' => $token
+           'token' => $token->plainTextToken
         ]);
     }
 }
